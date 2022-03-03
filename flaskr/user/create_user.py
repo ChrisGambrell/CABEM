@@ -15,16 +15,19 @@ def create_user(data, **kwargs):
             'type': 'string',
             'coerce': str,
             'empty': False,
+            'required': True,
         },
         'username': {
             'type': 'string',
             'coerce': str,
             'empty': False,
+            'required': True
         },
         'password': {
             'type': 'string',
             'coerce': str,
             'empty': False,
+            'required': True,
         },
     }
 
