@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 from flask import jsonify
-from flaskr.auth import bp, v
+from flaskr.user import bp, v
 from flaskr.db import db, User, UserSchema
 from flaskr.utils import parse_data
 from werkzeug.security import generate_password_hash
 
 
-@bp.route('/register', methods=['POST'])
+@bp.route('/', methods=['POST'])
 @parse_data
-def register(data, **kwargs):
+def create_user(data, **kwargs):
     schema = {
         'name': {
             'type': 'string',

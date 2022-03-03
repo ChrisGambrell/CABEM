@@ -77,9 +77,6 @@ class AuthActions(object):
     def login(self, data=default_auth):
         return self._client.post('/auth/login', json=data)
 
-    def register(self, data=default_user):
-        return self._client.post('/auth/register', json=data)
-
 
 @pytest.fixture()
 def auth(client):
@@ -117,14 +114,14 @@ class UserActions(object):
         self._client = client
         self._auth = auth
 
+    def create(self, data=default_user):
+        return self._client.post('/user/', json=data)
+
     def get(self, user=default_auth):
         return self._client.get('/user/', headers=self._auth.get_auth_header(user=user))
 
     def get_by_id(self, user_id=1, user=default_auth):
         return self._client.get(f'/user/{user_id}', headers=self._auth.get_auth_header(user=user))
-
-    def create(self, data=default_user):
-        return self._auth.register(data=data)
 
     def edit(self, user=default_user, data=None):
         return self._client.patch('/user/', headers=self._auth.get_auth_header(user=user), json=data)

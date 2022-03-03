@@ -157,28 +157,6 @@ Return:
 }
 ```
 
-### `POST /auth/register`
-
-Registers a user
-
-Input:
-
-```
-{
-    name: <str>,
-    username: <str>,
-    password: <str>
-}
-```
-
-Return:
-
-```
-{
-    User
-}
-```
-
 ### `GET /tasks/`
 
 Get all tasks for authenticated user
@@ -295,6 +273,28 @@ Headers:
 
 ```
 Authorization: Bearer [token]
+```
+
+Return:
+
+```
+{
+    User
+}
+```
+
+### `POST /user/`
+
+Creates a user
+
+Input:
+
+```
+{
+    name: <str>,
+    username: <str>,
+    password: <str>
+}
 ```
 
 Return:
