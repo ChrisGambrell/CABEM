@@ -1,30 +1,30 @@
-# flask_template
+# CABEM
 
 Sample boilerplate flask project
 
 ## Frameworks Used
 
-- Cerberus - input validation
-- Flask
-- Marshmallow - database schema
-- PyJWT
-- python-dotenv
-- SQLAlchemy - database
+-   Cerberus - input validation
+-   Flask
+-   Marshmallow - database schema
+-   PyJWT
+-   python-dotenv
+-   SQLAlchemy - database
 
 ## Getting the Code
 
 ### Cloning the Git Repository
 
-Run the following command to clone the flask_template Git repository
+Run the following command to clone the CABEM Git repository
 
 ```
-git clone git@github.com:ChrisGambrell/flask_template.git ./flask_template
+git clone git@github.com:ChrisGambrell/CABEM.git ./CABEM
 ```
 
 or
 
 ```
-git clone https://github.com/ChrisGambrell/flask_template.git ./flask_template
+git clone https://github.com/ChrisGambrell/CABEM.git ./CABEM
 ```
 
 ## Installation
