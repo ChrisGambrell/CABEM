@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+
+parser = argparse.ArgumentParser(description='Functionallity for the flask_template project')
+command = parser.add_subparsers(dest="command")
+
+build = command.add_parser('build')
+check_style = command.add_parser('check-style')
+gen_env = command.add_parser('gen-env')
+run = command.add_parser('run')
+test = command.add_parser('test')
+
+args = parser.parse_args()
+
+if args.command == 'build':
+    print('Checking style...')
+    os.system('Tools/lib/check-style')
+    print('\nTesting...')
+    os.system('Tools/lib/test')
+elif args.command == 'check-style':
+    print('Checking style...')
+    os.system('Tools/lib/check-style')
+elif args.command == 'gen-env':
+    print('Generating environment variables...')
+    os.system('Tools/lib/gen-env')
+elif args.command == 'run':
+    os.system('Tools/lib/run')
+elif args.command == 'test':
+    print('Testing...')
+    os.system('Tools/lib/test')

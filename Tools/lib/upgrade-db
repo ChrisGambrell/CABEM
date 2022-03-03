@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export FLASK_APP=Tools/Scripts/migrate.py
+flask db upgrade

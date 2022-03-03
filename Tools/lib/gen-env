@@ -1,0 +1,4 @@
+#!/bin/bash
+
+printf 'AUTH_SECRET=' > .env
+python -c 'import secrets; print(secrets.token_hex())' >> .env
