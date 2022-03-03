@@ -32,19 +32,19 @@ jobs:
       run: |
         ./Tools/lib/test
 
-  deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy:
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Refresh secrets
-      run: |
-        ./Tools/lib/gen-env
-    - uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-        heroku_email: ${{secrets.HEROKU_EMAIL}}
-        env_file: ./.env
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Refresh secrets
+  #     run: |
+  #       ./Tools/lib/gen-env
+  #   - uses: akhileshns/heroku-deploy@v3.12.12
+  #     with:
+  #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #       heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+  #       heroku_email: ${{secrets.HEROKU_EMAIL}}
+  #       env_file: ./.env
