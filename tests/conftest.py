@@ -4,7 +4,7 @@ import os
 import pytest
 import tempfile
 from flaskr import create_app
-from flaskr.db import Task, User, db
+from flaskr.db import User, db
 
 
 def parse_data(response):
@@ -23,11 +23,10 @@ def app():
     with app.app_context():
         db.create_all()
 
-        user1 = User(name='user', username='username', password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155')
-        user2 = User(name='user2', username='username2', password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155')
-        task = Task(user=user1, body='test title')
+        user1 = User(Email='user@example.com', Password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', FirstName='User', LastName='Name', SecurityQuestion='', SecurityAnswer='', StartDate=None, Img='', SaltKey='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', Phone='', CourseMgt='', DateOfBirth='')
+        user2 = User(Email='user2@example.com', Password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', FirstName='User2', LastName='Name2', SecurityQuestion='', SecurityAnswer='', StartDate=None, Img='', SaltKey='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', Phone='', CourseMgt='', DateOfBirth='')
 
-        db.session.add_all([user1, user2, task])
+        db.session.add_all([user1, user2])
         db.session.commit()
 
         yield app
@@ -46,21 +45,19 @@ def runner(app):
     return app.test_cli_runner()
 
 
-default_task = {
-    'user': 1,
-    'body': 'Test body',
-}
-
 default_auth = {
-    'name': 'user',
-    'username': 'username',
-    'password': 'password',
+    'FirstName': 'User',
+    'LastName': 'Name',
+    'Email': 'user@example.com',
+    'Password': 'password',
 }
 
 default_user = {
-    'name': 'John Doe',
-    'username': 'jdoe',
-    'password': 'password',
+    'Email': 'jdoe@example.com',
+    'Password': 'password',
+    'FirstName': 'John',
+    'LastName': 'Doe',
+    'SaltKey': 'password',
 }
 
 
@@ -81,32 +78,6 @@ class AuthActions(object):
 @pytest.fixture()
 def auth(client):
     return AuthActions(client)
-
-
-class TaskActions(object):
-    def __init__(self, client, auth):
-        self._client = client
-        self._auth = auth
-
-    def get(self, user=default_auth):
-        return self._client.get('/tasks/', headers=self._auth.get_auth_header(user=user))
-
-    def get_by_id(self, task_id=1, user=default_auth):
-        return self._client.get(f'/tasks/{task_id}', headers=self._auth.get_auth_header(user=user))
-
-    def create(self, user=default_auth, data=default_task):
-        return self._client.post('/tasks/', headers=self._auth.get_auth_header(user=user), json=data)
-
-    def edit(self, task_id=1, user=default_auth, data=None):
-        return self._client.patch(f'/tasks/{task_id}', headers=self._auth.get_auth_header(user=user), json=data)
-
-    def delete(self, task_id=1, user=default_auth):
-        return self._client.delete(f'/tasks/{task_id}', headers=self._auth.get_auth_header(user=user))
-
-
-@pytest.fixture()
-def task(client, auth):
-    return TaskActions(client, auth)
 
 
 class UserActions(object):

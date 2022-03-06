@@ -80,30 +80,37 @@ This project uses `Flask-Migrate` to manipulate the schemas.
 
 ## Schemas
 
-### Task
-
-```
-class Task(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user = db.relationship('User', back_populates='tasks')
-    body = db.Column(db.String, nullable=False)
-    completed = db.Column(db.Boolean, default=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-```
-
 ### User
 
 ```
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    username = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    tasks = db.relationship('Task', back_populates='user', cascade='all, delete')
+    idUser = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(255), unique=True, nullable=False, default='')
+    Password = db.Column(db.String(255), nullable=False)
+    FirstName = db.Column(db.String(255), nullable=False)
+    LastName = db.Column(db.String(255), nullable=False)
+    Enabled = db.Column(db.Integer, nullable=False, default='1')
+    LoggedIn = db.Column(db.Integer, nullable=False, default='0')
+    SecurityQuestion = db.Column(db.String)
+    SecurityAnswer = db.Column(db.String)
+    StartDate = db.Column(db.DateTime, default=None)
+    LastSeen = db.Column(db.DateTime, default=None)
+    Img = db.Column(db.String(255), default=None)
+    SaltKey = db.Column(db.String(255), nullable=False)
+    Phone = db.Column(db.String(20), default=None)
+    idAddress = db.Column(db.Integer, default=None)
+    PasswordSetDate = db.Column(db.DateTime, default=datetime.utcnow())
+    idSecurityQuestion = db.Column(db.Integer, nullable=False, default='0')
+    RegistrationSent = db.Column(db.Integer, nullable=False, default='0')
+    UseTwoFactor = db.Column(db.Integer, nullable=False, default='0')
+    idUserDigestPreference = db.Column(db.Integer, default=None)
+    isAdmin = db.Column(db.Integer, default='0')
+    isLearner = db.Column(db.Integer, default='0')
+    CourseMgt = db.Column(db.Integer, default='0')
+    Registered = db.Column(db.Integer, nullable=False, default='0')
+    DateOfBirth = db.Column(db.String(255), default=None)
+    UpdatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    CreatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 ```
 
 ## API Reference
@@ -144,8 +151,8 @@ Input:
 
 ```
 {
-    username: <str>,
-    password: <str>
+    Email: <str>,
+    Password: <str>
 }
 ```
 
@@ -155,114 +162,6 @@ Return:
 {
     token: <jwt token>
 }
-```
-
-### `GET /tasks/`
-
-Get all tasks for authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Return:
-
-```
-[
-    {
-        Task
-    }
-]
-```
-
-### `POST /tasks/`
-
-Creates and adds a new task to the database
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Input:
-
-```
-{
-    body: <str>,
-    completed: <bool, nullable>
-}
-```
-
-Return:
-
-```
-{
-    Task
-}
-```
-
-### `GET /tasks/<task_id>`
-
-Gets a task with a certain ID created by the authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Return:
-
-```
-{
-    Task
-}
-```
-
-### `PATCH /tasks/<task_id>`
-
-Updates a task with a certain ID created by the authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Input:
-
-```
-{
-    body: <str, nullable>,
-    completed: <bool, nullable>
-}
-```
-
-Return:
-
-```
-{
-    Task
-}
-```
-
-### `DELETE /tasks/<task_id>`
-
-Deletes a task with a certain ID created by the authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Return:
-
-```
-{}
 ```
 
 ### `GET /user/`
@@ -291,9 +190,18 @@ Input:
 
 ```
 {
-    name: <str>,
-    username: <str>,
-    password: <str>
+    Email: <str>,
+    Password: <str>,
+    FirstName: <str>,
+    LastName: <str>,
+    SecurityQuestion: <str | optional>,
+    SecurityAnswer: <str | optional>,
+    StartDate: <datetime | optional>,
+    Img: <str | optional>,
+    SaltKey: <str>,
+    Phone: <str | optional>,
+    CourseMgt: <int | optional>,
+    DateOfBirth: <str | optional>,
 }
 ```
 
@@ -319,8 +227,16 @@ Input:
 
 ```
 {
-    name: <str, nullable>,
-    username: <str, nullable>
+    Email: <str>,
+    FirstName: <str>,
+    LastName: <str>,
+    SecurityQuestion: <str | optional>,
+    SecurityAnswer: <str | optional>,
+    StartDate: <datetime | optional>,
+    Img: <str | optional>,
+    Phone: <str | optional>,
+    CourseMgt: <int | optional>,
+    DateOfBirth: <str | optional>,
 }
 ```
 
