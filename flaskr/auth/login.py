@@ -15,12 +15,12 @@ from werkzeug.security import check_password_hash
 @parse_data
 def login(data, **kwargs):
     schema = {
-        'username': {
+        'Email': {
             'type': 'string',
             'coerce': str,
             'empty': False,
         },
-        'password': {
+        'Password': {
             'type': 'string',
             'coerce': str,
             'empty': False,
@@ -31,15 +31,15 @@ def login(data, **kwargs):
         return jsonify({'error': v.errors}), 400
     data = v.normalized(data, schema)
 
-    user = User.query.filter_by(username=data['username']).first()
+    user = User.query.filter_by(Email=data['Email']).first()
 
     if user is None:
-        return jsonify({'error': {'username': ['username is incorrect']}}), 401
-    elif not check_password_hash(user.password, data['password']):
-        return jsonify({'error': {'password': ['password is incorrect.']}}), 401
+        return jsonify({'error': {'Email': ['Email is incorrect']}}), 401
+    elif not check_password_hash(user.Password, data['Password']):
+        return jsonify({'error': {'Password': ['Password is incorrect.']}}), 401
 
     return jsonify({'token': jwt.encode({
-        'user_id': user.id,
-        'password': user.password,
+        'user_id': user.idUser,
+        'Password': user.Password,
         'exp': (datetime.now() + timedelta(days=30)).timestamp(),
     }, os.getenv('AUTH_SECRET', dotenv_values().get('AUTH_SECRET')), algorithm='HS256')})

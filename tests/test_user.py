@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from flaskr.db import Task, User
+from flaskr.db import  User
 from tests.conftest import default_auth, default_user, parse_data
 
 
@@ -64,17 +64,6 @@ def test_delete_user(user):
     user.delete()
 
     assert User.query.count() < num_users
-
-
-def test_delete_user_cascade(task, user):
-    response = user.create()
-    new_user = parse_data(response)
-
-    task.create(user=default_user)
-    num_tasks = Task.query.filter_by(user_id=new_user['id']).count()
-    user.delete()
-
-    assert Task.query.filter_by(user_id=new_user['id']).count() < num_tasks
 
 
 @pytest.mark.parametrize(('user_id', 'status', 'error'), (

@@ -80,19 +80,6 @@ This project uses `Flask-Migrate` to manipulate the schemas.
 
 ## Schemas
 
-### Task
-
-```
-class Task(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user = db.relationship('User', back_populates='tasks')
-    body = db.Column(db.String, nullable=False)
-    completed = db.Column(db.Boolean, default=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-```
-
 ### User
 
 ```
@@ -155,114 +142,6 @@ Return:
 {
     token: <jwt token>
 }
-```
-
-### `GET /tasks/`
-
-Get all tasks for authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Return:
-
-```
-[
-    {
-        Task
-    }
-]
-```
-
-### `POST /tasks/`
-
-Creates and adds a new task to the database
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Input:
-
-```
-{
-    body: <str>,
-    completed: <bool, nullable>
-}
-```
-
-Return:
-
-```
-{
-    Task
-}
-```
-
-### `GET /tasks/<task_id>`
-
-Gets a task with a certain ID created by the authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Return:
-
-```
-{
-    Task
-}
-```
-
-### `PATCH /tasks/<task_id>`
-
-Updates a task with a certain ID created by the authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Input:
-
-```
-{
-    body: <str, nullable>,
-    completed: <bool, nullable>
-}
-```
-
-Return:
-
-```
-{
-    Task
-}
-```
-
-### `DELETE /tasks/<task_id>`
-
-Deletes a task with a certain ID created by the authenticated user
-
-Headers:
-
-```
-Authorization: Bearer [token]
-```
-
-Return:
-
-```
-{}
 ```
 
 ### `GET /user/`

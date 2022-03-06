@@ -35,13 +35,10 @@ def create_app(test_config=None):
         @login_required
         @parse_data
         def secret(authed_user, **kwargs):
-            return jsonify({'hello': authed_user.name})
+            return jsonify({'hello': authed_user.FirstName})
 
         from . import auth
         app.register_blueprint(auth.bp)
-
-        from . import tasks
-        app.register_blueprint(tasks.bp)
 
         from . import user
         app.register_blueprint(user.bp)

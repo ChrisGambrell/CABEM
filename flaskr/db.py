@@ -5,21 +5,60 @@ from datetime import datetime
 from flask.cli import with_appcontext
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy, event
+from sqlalchemy import MetaData
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.expression import delete, update
 
-db = SQLAlchemy()
+metadata = MetaData(naming_convention={
+    "ix": 'ix,%(column_0_label)s',
+    "uq": "uq,%(table_name)s,%(column_0_name)s",
+    "ck": "ck,%(table_name)s,%(constraint_name)s",
+    "fk": "fk,%(table_name)s,%(column_0_name)s,%(referred_table_name)s",
+    "pk": "pk,%(table_name)s",
+})
+
+db = SQLAlchemy(metadata=metadata)
 mb = Marshmallow()
 
 
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)    # noqa: A003
+#     name = db.Column(db.String, nullable=False)
+#     username = db.Column(db.String, unique=True, nullable=False)
+#     password = db.Column(db.String, nullable=False)
+#     updated_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
+#     created_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
+#     tasks = db.relationship('Task', back_populates='user')
+
+
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)    # noqa: A003
-    name = db.Column(db.String, nullable=False)
-    username = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
-    tasks = db.relationship('Task', back_populates='user')
+    idUser = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(255), unique=True, nullable=False, default='')
+    Password = db.Column(db.String(255), nullable=False)
+    FirstName = db.Column(db.String(255), nullable=False)
+    LastName = db.Column(db.String(255), nullable=False)
+    Enabled = db.Column(db.Integer, nullable=False, default='1')
+    LoggedIn = db.Column(db.Integer, nullable=False, default='0')
+    SecurityQuestion = db.Column(db.String)
+    SecurityAnswer = db.Column(db.String)
+    StartDate = db.Column(db.DateTime, default=None)
+    LastSeen = db.Column(db.DateTime, default=None)
+    Img = db.Column(db.String(255), default=None)
+    SaltKey = db.Column(db.String(255), nullable=False)
+    Phone = db.Column(db.String(20), default=None)
+    idAddress = db.Column(db.Integer, default=None)
+    PasswordSetDate = db.Column(db.DateTime, default=datetime.utcnow())
+    idSecurityQuestion = db.Column(db.Integer, nullable=False, default='0')
+    RegistrationSent = db.Column(db.Integer, nullable=False, default='0')
+    UseTwoFactor = db.Column(db.Integer, nullable=False, default='0')
+    idUserDigestPreference = db.Column(db.Integer, default=None)
+    isAdmin = db.Column(db.Integer, default='0')
+    isLearner = db.Column(db.Integer, default='0')
+    CourseMgt = db.Column(db.Integer, default='0')
+    Registered = db.Column(db.Integer, nullable=False, default='0')
+    DateOfBirth = db.Column(db.String(255), default=None)
+    UpdatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    CreatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
 
 @event.listens_for(User, 'after_update')
@@ -29,30 +68,6 @@ def user_after_update(mapper, connection, user):
         session.execute(update(User).where(User.id == user.id).values(updated_at=datetime.utcnow()))
 
 
-@event.listens_for(User, 'after_delete')
-def user_after_delete(mapper, connection, user):
-    @event.listens_for(Session, 'after_flush', once=True)
-    def after_flush(session, context):
-        session.execute(delete(Task).where(Task.id.in_([task.id for task in user.tasks])))
-
-
-class Task(db.Model):
-    id = db.Column(db.Integer, primary_key=True)    # noqa: A003
-    user = db.relationship('User', back_populates='tasks')
-    body = db.Column(db.String, nullable=False)
-    completed = db.Column(db.Boolean, default=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-
-@event.listens_for(Task, 'after_update')
-def task_after_update(mapper, connection, task):
-    @event.listens_for(Session, 'after_flush', once=True)
-    def task_after_flush(session, context):
-        session.execute(update(Task).where(Task.id == task.id).values(updated_at=datetime.utcnow()))
-
-
 class UserSchema(mb.SQLAlchemyAutoSchema):
     class Meta:
         model = User
@@ -60,20 +75,13 @@ class UserSchema(mb.SQLAlchemyAutoSchema):
         include_relationships = True
 
 
-class TaskSchema(mb.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Task
-        include_fk = True
-        include_relationships = True
-
-
 def init_data():
     # If any initial data is needed for the database,
     # do it here.
-    user = User(name='John Doe', username='jdoe', password='hashed_password')
-    task = Task(user=user, body='Sample task', completed=True)
+    # user = User(name='John Doe', username='jdoe', password='hashed_password')
 
-    db.session.add_all([user, task])
+    # db.session.add_all([user])
+    pass
 
 
 def init_db():
