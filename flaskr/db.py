@@ -21,16 +21,6 @@ db = SQLAlchemy(metadata=metadata)
 mb = Marshmallow()
 
 
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)    # noqa: A003
-#     name = db.Column(db.String, nullable=False)
-#     username = db.Column(db.String, unique=True, nullable=False)
-#     password = db.Column(db.String, nullable=False)
-#     updated_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
-#     created_at = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
-#     tasks = db.relationship('Task', back_populates='user')
-
-
 class User(db.Model):
     idUser = db.Column(db.Integer, primary_key=True)
     Email = db.Column(db.String(255), unique=True, nullable=False, default='')
