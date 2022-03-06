@@ -65,7 +65,7 @@ class User(db.Model):
 def user_after_update(mapper, connection, user):
     @event.listens_for(Session, 'after_flush', once=True)
     def after_flush(session, context):
-        session.execute(update(User).where(User.id == user.id).values(updated_at=datetime.utcnow()))
+        session.execute(update(User).where(User.idUser == user.idUser).values(UpdatedAt=datetime.utcnow()))
 
 
 class UserSchema(mb.SQLAlchemyAutoSchema):

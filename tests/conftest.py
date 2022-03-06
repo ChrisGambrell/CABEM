@@ -23,8 +23,8 @@ def app():
     with app.app_context():
         db.create_all()
 
-        user1 = User(name='user', username='username', password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155')
-        user2 = User(name='user2', username='username2', password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155')
+        user1 = User(Email='user@example.com', Password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', FirstName='User', LastName='Name', SecurityQuestion='', SecurityAnswer='', StartDate=None, Img='', SaltKey='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', Phone='', CourseMgt='', DateOfBirth='')
+        user2 = User(Email='user2@example.com', Password='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', FirstName='User2', LastName='Name2', SecurityQuestion='', SecurityAnswer='', StartDate=None, Img='', SaltKey='pbkdf2:sha256:260000$PMLqezAg2LqvlI9c$e3bb259297561bac7418481fd46b78590dc15e5e836d520535085f0966ac9155', Phone='', CourseMgt='', DateOfBirth='')
 
         db.session.add_all([user1, user2])
         db.session.commit()
@@ -46,15 +46,18 @@ def runner(app):
 
 
 default_auth = {
-    'name': 'user',
-    'username': 'username',
-    'password': 'password',
+    'FirstName': 'User',
+    'LastName': 'Name',
+    'Email': 'user@example.com',
+    'Password': 'password',
 }
 
 default_user = {
-    'name': 'John Doe',
-    'username': 'jdoe',
-    'password': 'password',
+    'Email': 'jdoe@example.com',
+    'Password': 'password',
+    'FirstName': 'John',
+    'LastName': 'Doe',
+    'SaltKey': 'password',
 }
 
 
