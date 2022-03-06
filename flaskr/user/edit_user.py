@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
 from flask import jsonify
 from flaskr.db import db, User, UserSchema
 from flaskr.user import bp, v
@@ -11,12 +12,52 @@ from flaskr.utils import login_required, parse_data
 @parse_data
 def edit_user(authed_user, data, **kwargs):
     schema = {
-        'name': {
+        'Email': {
             'type': 'string',
             'coerce': str,
             'empty': False,
         },
-        'username': {
+        'FirstName': {
+            'type': 'string',
+            'coerce': str,
+            'empty': False,
+        },
+        'LastName': {
+            'type': 'string',
+            'coerce': str,
+            'empty': False,
+        },
+        'SecurityQuestion': {
+            'type': 'string',
+            'coerce': str,
+            'empty': False,
+        },
+        'SecurityAnswer': {
+            'type': 'string',
+            'coerce': str,
+            'empty': False,
+        },
+        'StartDate': {
+            'type': 'datetime',
+            'coerce': datetime,
+            'empty': False,
+        },
+        'Img': {
+            'type': 'string',
+            'coerce': str,
+            'empty': False,
+        },
+        'Phone': {
+            'type': 'string',
+            'coerce': str,
+            'empty': False,
+        },
+        'CourseMgt': {
+            'type': 'integer',
+            'coerce': int,
+            'empty': False,
+        },
+        'DateOfBirth': {
             'type': 'string',
             'coerce': str,
             'empty': False,
@@ -28,9 +69,9 @@ def edit_user(authed_user, data, **kwargs):
     data = v.normalized(data, schema)
 
     for key in data.keys():
-        if key == 'username' and data['username'] != authed_user.username:
-            if User.query.filter_by(username=data[key]).count() > 0:
-                return jsonify({'error': {'username': ['username is taken']}}), 401
+        if key == 'Email' and data['Email'] != authed_user.Email:
+            if User.query.filter_by(Email=data[key]).count() > 0:
+                return jsonify({'error': {'Email': ['Email is taken']}}), 401
         setattr(authed_user, key, data[key])
     db.session.commit()
 

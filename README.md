@@ -200,8 +200,6 @@ Input:
     Img: <str | optional>,
     SaltKey: <str>,
     Phone: <str | optional>,
-    isAdmin: <int | optional>,
-    isLearner: <int | optional>,
     CourseMgt: <int | optional>,
     DateOfBirth: <str | optional>,
 }
@@ -229,8 +227,16 @@ Input:
 
 ```
 {
-    name: <str, nullable>,
-    username: <str, nullable>
+    Email: <str>,
+    FirstName: <str>,
+    LastName: <str>,
+    SecurityQuestion: <str | optional>,
+    SecurityAnswer: <str | optional>,
+    StartDate: <datetime | optional>,
+    Img: <str | optional>,
+    Phone: <str | optional>,
+    CourseMgt: <int | optional>,
+    DateOfBirth: <str | optional>,
 }
 ```
 

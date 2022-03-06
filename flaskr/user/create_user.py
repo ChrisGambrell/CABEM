@@ -67,16 +67,6 @@ def create_user(data, **kwargs):
             'coerce': str,
             'empty': False,
         },
-        'isAdmin': {
-            'type': 'integer',
-            'coerce': int,
-            'empty': False,
-        },
-        'isLearner': {
-            'type': 'integer',
-            'coerce': int,
-            'empty': False,
-        },
         'CourseMgt': {
             'type': 'integer',
             'coerce': int,
