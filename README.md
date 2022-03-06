@@ -84,13 +84,33 @@ This project uses `Flask-Migrate` to manipulate the schemas.
 
 ```
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    username = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    tasks = db.relationship('Task', back_populates='user', cascade='all, delete')
+    idUser = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(255), unique=True, nullable=False, default='')
+    Password = db.Column(db.String(255), nullable=False)
+    FirstName = db.Column(db.String(255), nullable=False)
+    LastName = db.Column(db.String(255), nullable=False)
+    Enabled = db.Column(db.Integer, nullable=False, default='1')
+    LoggedIn = db.Column(db.Integer, nullable=False, default='0')
+    SecurityQuestion = db.Column(db.String)
+    SecurityAnswer = db.Column(db.String)
+    StartDate = db.Column(db.DateTime, default=None)
+    LastSeen = db.Column(db.DateTime, default=None)
+    Img = db.Column(db.String(255), default=None)
+    SaltKey = db.Column(db.String(255), nullable=False)
+    Phone = db.Column(db.String(20), default=None)
+    idAddress = db.Column(db.Integer, default=None)
+    PasswordSetDate = db.Column(db.DateTime, default=datetime.utcnow())
+    idSecurityQuestion = db.Column(db.Integer, nullable=False, default='0')
+    RegistrationSent = db.Column(db.Integer, nullable=False, default='0')
+    UseTwoFactor = db.Column(db.Integer, nullable=False, default='0')
+    idUserDigestPreference = db.Column(db.Integer, default=None)
+    isAdmin = db.Column(db.Integer, default='0')
+    isLearner = db.Column(db.Integer, default='0')
+    CourseMgt = db.Column(db.Integer, default='0')
+    Registered = db.Column(db.Integer, nullable=False, default='0')
+    DateOfBirth = db.Column(db.String(255), default=None)
+    UpdatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    CreatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 ```
 
 ## API Reference
@@ -131,8 +151,8 @@ Input:
 
 ```
 {
-    username: <str>,
-    password: <str>
+    Email: <str>,
+    Password: <str>
 }
 ```
 
@@ -170,9 +190,20 @@ Input:
 
 ```
 {
-    name: <str>,
-    username: <str>,
-    password: <str>
+    Email: <str>,
+    Password: <str>,
+    FirstName: <str>,
+    LastName: <str>,
+    SecurityQuestion: <str | optional>,
+    SecurityAnswer: <str | optional>,
+    StartDate: <datetime | optional>,
+    Img: <str | optional>,
+    SaltKey: <str>,
+    Phone: <str | optional>,
+    isAdmin: <int | optional>,
+    isLearner: <int | optional>,
+    CourseMgt: <int | optional>,
+    DateOfBirth: <str | optional>,
 }
 ```
 
