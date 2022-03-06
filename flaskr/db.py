@@ -21,6 +21,56 @@ db = SQLAlchemy(metadata=metadata)
 mb = Marshmallow()
 
 
+class Course(db.Model):
+    idCourse = db.Column(db.Integer, nullable=False, primary_key=True)
+    CourseTitle = db.Column(db.String(255), default=None)
+    CourseStatus = db.Column(db.String(45), default=None)
+    idProposal = db.Column(db.Integer, default=None)
+    idProgram = db.Column(db.Integer, default=None)
+    CourseNumber = db.Column(db.String(45), default=None)
+    ProjectedStartDate = db.Column(db.DateTime, default=None)
+    CourseStart = db.Column(db.DateTime, default=None)
+    CourseEnd = db.Column(db.DateTime, default=None)
+    isLaunched = db.Column(db.Integer, default='0')
+    MarketingSignoff = db.Column(db.Integer, default='0')
+    idUserMarketingSignoff = db.Column(db.Integer, default=None)
+    DateMarketingSignoff = db.Column(db.DateTime, default=None)
+    CMESignoff = db.Column(db.Integer, default='0')
+    idUserCMESignoff = db.Column(db.Integer, default=None)
+    DateCMESignoff = db.Column(db.DateTime, default=None)
+    MedReviewSignoff = db.Column(db.Integer, default='0')
+    idUserMedReviewSignoff = db.Column(db.Integer, default=None)
+    DateMedReviewSignoff = db.Column(db.DateTime, default=None)
+    AgendaComplete = db.Column(db.Integer, default='0')
+    idUserAgendaComplete = db.Column(db.Integer, default=None)
+    DateAgendaComplete = db.Column(db.DateTime, default=None)
+    DateCreated = db.Column(db.DateTime, default=None)
+    DateLastUpdated = db.Column(db.DateTime, default=None)
+    idCourseType = db.Column(db.Integer, default=None)
+    idUserCreated = db.Column(db.Integer, default=None)
+    Renewal = db.Column(db.Integer, default='0')
+    NASWApprovalNumber = db.Column(db.Integer, default=None)
+    ProposalDueDate = db.Column(db.DateTime, default=None)
+    idModule = db.Column(db.Integer, default=None)
+    idWorkflowStep = db.Column(db.Integer, default=None)
+    idPreviousWorkflowStep = db.Column(db.Integer, default=None)
+    Valid = db.Column(db.Integer, default='1')
+    idCVentEvent = db.Column(db.Integer, default=None)
+    ClosureReason = db.Column(db.String(255), default=None)
+    ClosureDescription = db.Column(db.String)
+    CVentEventCode = db.Column(db.String(45), default=None)
+    IsFree = db.Column(db.Integer, nullable=False, default='0')
+    CatalogLinkout = db.Column(db.String(255), default=None)
+    isLiveStream = db.Column(db.Integer, nullable=False, default='0')
+
+
+class CourseSchema(mb.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Course
+        include_fk = True
+        include_relationships = True
+
+
 class User(db.Model):
     idUser = db.Column(db.Integer, primary_key=True)
     Email = db.Column(db.String(255), unique=True, nullable=False, default='')
