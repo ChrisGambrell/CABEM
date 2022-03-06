@@ -208,6 +208,70 @@ Return:
 }
 ```
 
+### `POST /course/`
+
+Creates a course
+
+Headers:
+
+```
+Authorization: Bearer [token]
+```
+
+Input:
+
+```
+{
+    CourseTitle: <str | optional>,
+    CourseStatus: <str | optional>,
+    idProposal: <int | optional>,
+    idProgram: <int | optional>,
+    CourseNumber: <str | optional>,
+    ProjectedStartDate: <datetime | optional>,
+    CourseStart: <datetime | optional>,
+    CourseEnd: <datetime | optional>,
+    isLaunched: <int | optional>,
+    MarketingSignoff: <int | optional>,
+    idUserMarketingSignoff: <int | optional>,
+    DateMarketingSignoff: <datetime | optional>,
+    CMESignoff: <int | optional>,
+    idUserCMESignoff: <int | optional>,
+    DateCMESignoff: <datetime | optional>,
+    MedReviewSignoff: <int | optional>,
+    idUserMedReviewSignoff: <int | optional>,
+    DateMedReviewSignoff: <datetime | optional>,
+    AgendaComplete: <int | optional>,
+    idUserAgendaComplete: <int | optional>,
+    DateAgendaComplete: <datetime | optional>,
+    DateCreated: <datetime | optional>,
+    DateLastUpdated: <datetime | optional>,
+    idCourseType: <int | optional>,
+    idUserCreated: <int | optional>,
+    Renewal: <int | optional>,
+    NASWApprovalNumber: <int | optional>,
+    ProposalDueDate: <datetime | optional>,
+    idModule: <int | optional>,
+    idWorkflowStep: <int | optional>,
+    idPreviousWorkflowStep: <int | optional>,
+    Valid: <int | optional>,
+    idCVentEvent: <int | optional>,
+    ClosureReason: <str | optional>,
+    ClosureDescription: <str | optional>,
+    CVentEventCode: <str | optional>,
+    IsFree: <int | optional>,
+    CatalogLinkout: <str | optional>,
+    isLiveStream: <int | optional>,
+}
+```
+
+Return:
+
+```
+{
+    Course
+}
+```
+
 ### `GET /user/`
 
 Gets the authenticated user
