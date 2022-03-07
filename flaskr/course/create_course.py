@@ -2,12 +2,13 @@
 
 from datetime import datetime
 from flask import jsonify
-from flaskr.user import bp, v
+from flaskr.course import bp, v
 from flaskr.db import db, Course, CourseSchema
-from flaskr.utils import parse_data
+from flaskr.utils import login_required, parse_data
 
 
 @bp.route('/', methods=['POST'])
+@login_required
 @parse_data
 def create_course(data, **kwargs):
     schema = {
@@ -37,7 +38,7 @@ def create_course(data, **kwargs):
             'empty': False,
         },
         'ProjectedStartDate': {
-            'type': 'datetimg',
+            'type': 'datetime',
             'coerce': datetime,
             'empty': False,
         },

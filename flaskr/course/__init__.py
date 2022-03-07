@@ -9,3 +9,4 @@ bp = Blueprint('course', __name__, url_prefix='/course')
 v = Validator(purge_unknown=True)
 
 from . import create_course
+from . import get_courses
