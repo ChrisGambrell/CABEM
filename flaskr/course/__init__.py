@@ -10,3 +10,4 @@ v = Validator(purge_unknown=True)
 
 from . import create_course
 from . import get_courses
+from . import get_course_by_id
