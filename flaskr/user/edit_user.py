@@ -6,6 +6,8 @@ from flaskr.db import db, User, UserSchema
 from flaskr.user import bp, v
 from flaskr.utils import login_required, parse_data
 
+to_datetime = lambda t: datetime.fromtimestamp(t)
+
 
 @bp.route('/', methods=['PATCH'])
 @login_required
@@ -39,7 +41,7 @@ def edit_user(authed_user, data, **kwargs):
         },
         'StartDate': {
             'type': 'datetime',
-            'coerce': datetime,
+            'coerce': to_datetime,
             'empty': False,
         },
         'Img': {

@@ -3,7 +3,7 @@
 import argparse
 import os
 
-parser = argparse.ArgumentParser(description='Functionallity for the flask_template project')
+parser = argparse.ArgumentParser(description='Functionallity for the CABEM project')
 command = parser.add_subparsers(dest="command")
 
 build = command.add_parser('build')

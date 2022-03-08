@@ -83,6 +83,50 @@ This project uses `Flask-Migrate` to manipulate the schemas.
 ### User
 
 ```
+class Course(db.Model):
+    idCourse = db.Column(db.Integer, nullable=False, primary_key=True)
+    CourseTitle = db.Column(db.String(255), default=None)
+    CourseStatus = db.Column(db.String(45), default=None)
+    idProposal = db.Column(db.Integer, default=None)
+    idProgram = db.Column(db.Integer, default=None)
+    CourseNumber = db.Column(db.String(45), default=None)
+    ProjectedStartDate = db.Column(db.DateTime, default=None)
+    CourseStart = db.Column(db.DateTime, default=None)
+    CourseEnd = db.Column(db.DateTime, default=None)
+    isLaunched = db.Column(db.Integer, default='0')
+    MarketingSignoff = db.Column(db.Integer, default='0')
+    idUserMarketingSignoff = db.Column(db.Integer, default=None)
+    DateMarketingSignoff = db.Column(db.DateTime, default=None)
+    CMESignoff = db.Column(db.Integer, default='0')
+    idUserCMESignoff = db.Column(db.Integer, default=None)
+    DateCMESignoff = db.Column(db.DateTime, default=None)
+    MedReviewSignoff = db.Column(db.Integer, default='0')
+    idUserMedReviewSignoff = db.Column(db.Integer, default=None)
+    DateMedReviewSignoff = db.Column(db.DateTime, default=None)
+    AgendaComplete = db.Column(db.Integer, default='0')
+    idUserAgendaComplete = db.Column(db.Integer, default=None)
+    DateAgendaComplete = db.Column(db.DateTime, default=None)
+    DateCreated = db.Column(db.DateTime, default=None)
+    DateLastUpdated = db.Column(db.DateTime, default=None)
+    idCourseType = db.Column(db.Integer, default=None)
+    idUserCreated = db.Column(db.Integer, default=None)
+    Renewal = db.Column(db.Integer, default='0')
+    NASWApprovalNumber = db.Column(db.Integer, default=None)
+    ProposalDueDate = db.Column(db.DateTime, default=None)
+    idModule = db.Column(db.Integer, default=None)
+    idWorkflowStep = db.Column(db.Integer, default=None)
+    idPreviousWorkflowStep = db.Column(db.Integer, default=None)
+    Valid = db.Column(db.Integer, default='1')
+    idCVentEvent = db.Column(db.Integer, default=None)
+    ClosureReason = db.Column(db.String(255), default=None)
+    ClosureDescription = db.Column(db.String)
+    CVentEventCode = db.Column(db.String(45), default=None)
+    IsFree = db.Column(db.Integer, nullable=False, default='0')
+    CatalogLinkout = db.Column(db.String(255), default=None)
+    isLiveStream = db.Column(db.Integer, nullable=False, default='0')
+```
+
+```
 class User(db.Model):
     idUser = db.Column(db.Integer, primary_key=True)
     Email = db.Column(db.String(255), unique=True, nullable=False, default='')
@@ -162,6 +206,188 @@ Return:
 {
     token: <jwt token>
 }
+```
+
+### `GET /course/`
+
+Gets all courses
+
+Headers:
+
+```
+Authorization: Bearer [token]
+```
+
+Return:
+
+```
+[
+    {
+        Course
+    }
+]
+```
+
+### `POST /course/`
+
+Creates a course
+
+Headers:
+
+```
+Authorization: Bearer [token]
+```
+
+Input:
+
+```
+{
+    CourseTitle: <str | optional>,
+    CourseStatus: <str | optional>,
+    idProposal: <int | optional>,
+    idProgram: <int | optional>,
+    CourseNumber: <str | optional>,
+    ProjectedStartDate: <datetime | optional>,
+    CourseStart: <datetime | optional>,
+    CourseEnd: <datetime | optional>,
+    isLaunched: <int | optional>,
+    MarketingSignoff: <int | optional>,
+    idUserMarketingSignoff: <int | optional>,
+    DateMarketingSignoff: <datetime | optional>,
+    CMESignoff: <int | optional>,
+    idUserCMESignoff: <int | optional>,
+    DateCMESignoff: <datetime | optional>,
+    MedReviewSignoff: <int | optional>,
+    idUserMedReviewSignoff: <int | optional>,
+    DateMedReviewSignoff: <datetime | optional>,
+    AgendaComplete: <int | optional>,
+    idUserAgendaComplete: <int | optional>,
+    DateAgendaComplete: <datetime | optional>,
+    DateCreated: <datetime | optional>,
+    DateLastUpdated: <datetime | optional>,
+    idCourseType: <int | optional>,
+    idUserCreated: <int | optional>,
+    Renewal: <int | optional>,
+    NASWApprovalNumber: <int | optional>,
+    ProposalDueDate: <datetime | optional>,
+    idModule: <int | optional>,
+    idWorkflowStep: <int | optional>,
+    idPreviousWorkflowStep: <int | optional>,
+    Valid: <int | optional>,
+    idCVentEvent: <int | optional>,
+    ClosureReason: <str | optional>,
+    ClosureDescription: <str | optional>,
+    CVentEventCode: <str | optional>,
+    IsFree: <int | optional>,
+    CatalogLinkout: <str | optional>,
+    isLiveStream: <int | optional>,
+}
+```
+
+Return:
+
+```
+{
+    Course
+}
+```
+
+### `GET /course/<course_id>`
+
+Gets a course by its ID
+
+Headers:
+
+```
+Authorization: Bearer [token]
+```
+
+Return:
+
+```
+{
+    Course
+}
+```
+
+### `PATCH /course/<course_id>`
+
+Updates a course
+
+Headers:
+
+```
+Authorization: Bearer [token]
+```
+
+Input:
+
+```
+{
+    CourseTitle: <str | optional>,
+    CourseStatus: <str | optional>,
+    idProposal: <int | optional>,
+    idProgram: <int | optional>,
+    CourseNumber: <str | optional>,
+    ProjectedStartDate: <datetime | optional>,
+    CourseStart: <datetime | optional>,
+    CourseEnd: <datetime | optional>,
+    isLaunched: <int | optional>,
+    MarketingSignoff: <int | optional>,
+    idUserMarketingSignoff: <int | optional>,
+    DateMarketingSignoff: <datetime | optional>,
+    CMESignoff: <int | optional>,
+    idUserCMESignoff: <int | optional>,
+    DateCMESignoff: <datetime | optional>,
+    MedReviewSignoff: <int | optional>,
+    idUserMedReviewSignoff: <int | optional>,
+    DateMedReviewSignoff: <datetime | optional>,
+    AgendaComplete: <int | optional>,
+    idUserAgendaComplete: <int | optional>,
+    DateAgendaComplete: <datetime | optional>,
+    DateCreated: <datetime | optional>,
+    DateLastUpdated: <datetime | optional>,
+    idCourseType: <int | optional>,
+    idUserCreated: <int | optional>,
+    Renewal: <int | optional>,
+    NASWApprovalNumber: <int | optional>,
+    ProposalDueDate: <datetime | optional>,
+    idModule: <int | optional>,
+    idWorkflowStep: <int | optional>,
+    idPreviousWorkflowStep: <int | optional>,
+    Valid: <int | optional>,
+    idCVentEvent: <int | optional>,
+    ClosureReason: <str | optional>,
+    ClosureDescription: <str | optional>,
+    CVentEventCode: <str | optional>,
+    IsFree: <int | optional>,
+    CatalogLinkout: <str | optional>,
+    isLiveStream: <int | optional>,
+}
+```
+
+Return:
+
+```
+{
+    Course
+}
+```
+
+### `DELETE /course/<course_id>`
+
+Deletes a course
+
+Headers:
+
+```
+Authorization: Bearer [token]
+```
+
+Return:
+
+```
+{}
 ```
 
 ### `GET /user/`

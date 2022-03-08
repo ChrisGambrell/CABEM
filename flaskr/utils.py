@@ -5,7 +5,17 @@ import jwt
 import os
 from dotenv import dotenv_values
 from flask import jsonify, request
-from flaskr.db import User
+from flaskr.db import Course, User
+
+
+def exists_course(endpoint):
+    @functools.wraps(endpoint)
+    def wrapped_endpoint(**kwargs):
+        course = Course.query.filter_by(idCourse=kwargs.get('course_id', '')).first()
+        if course is None:
+            return jsonify({'error': {'course': ['course not found']}}), 404
+        return endpoint(fetched_course=course, **kwargs)
+    return wrapped_endpoint
 
 
 def exists_user(endpoint):
