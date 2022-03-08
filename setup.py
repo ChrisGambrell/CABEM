@@ -12,7 +12,6 @@ setup(
         'cerberus',
         'coverage',
         'flake8',
-        'flake8-bandit',
         'flake8-bugbear',
         'flake8-builtins',
         'flake8-commas',
