@@ -18,11 +18,11 @@ def test_validate_create_course_input(course, CourseTitle, CourseNumber, CourseS
     assert data.get('error', {}) == error
 
 
-# def test_create(user):
-#     num_users = User.query.count()
-#     user.create()
+def test_create(user):
+    num_users = User.query.count()
+    user.create()
 
-#     assert User.query.count() > num_users
+    assert User.query.count() > num_users
 
 
 # # # TODO - This is a failing test, needs to be debugged
