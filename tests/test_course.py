@@ -2,7 +2,7 @@
 
 import pytest
 from datetime import datetime, timedelta
-from flaskr.db import  User
+from flaskr.db import Course
 from tests.conftest import default_auth, default_user, parse_data
 
 
@@ -18,20 +18,21 @@ def test_validate_create_course_input(course, CourseTitle, CourseNumber, CourseS
     assert data.get('error', {}) == error
 
 
-def test_create(user):
-    num_users = User.query.count()
-    user.create()
+def test_create(course):
+    num_courses = Course.query.count()
+    course.create()
 
-    assert User.query.count() > num_users
+    assert Course.query.count() > num_courses
 
 
-# # # TODO - This is a failing test, needs to be debugged
-# # def test_get_user(user):
-# #     response = user.get()
-# #     data = parse_data(response)
+# # TODO - This is a failing test, needs to be debugged
+# #        Imported from test_user
+# def test_get_user(user):
+#     response = user.get()
+#     data = parse_data(response)
 
-# #     for key in ['Email', 'FirstName', 'LastName']:
-# #         assert data[key] == default_auth[key]
+#     for key in ['Email', 'FirstName', 'LastName']:
+#         assert data[key] == default_auth[key]
 
 
 @pytest.mark.parametrize(('data', 'status', 'error'), (
@@ -57,31 +58,33 @@ def test_edit_course(course):
         assert data[key] != new_course[key]
 
 
-# def test_delete_user(user):
-#     user.create()
-#     num_users = User.query.count()
-#     user.delete()
+def test_delete_user(course):
+    response = course.create()
+    new_course = parse_data(response)
 
-#     assert User.query.count() < num_users
+    num_courses = Course.query.count()
+    course.delete(course_id=new_course['idCourse'])
+
+    assert Course.query.count() < num_courses
 
 
-# @pytest.mark.parametrize(('user_id', 'status', 'error'), (
-#     (-1, 404, {'user': ['user not found']}),
-#     (None, 200, {}),
-# ))
-# def test_get_user_by_id(user, user_id, status, error):
-#     if user_id is not None:
-#         response = user.get_by_id(user_id=user_id)
-#         data = parse_data(response)
+@pytest.mark.parametrize(('course_id', 'status', 'error'), (
+    (-1, 404, {'course': ['course not found']}),
+    (None, 200, {}),
+))
+def test_get_course_by_id(course, course_id, status, error):
+    if course_id is not None:
+        response = course.get_by_id(course_id=course_id)
+        data = parse_data(response)
 
-#         assert response.status_code == status
-#         assert data.get('error', {}) == error
-#     else:
-#         response = user.create()
-#         new_user = parse_data(response)
+        assert response.status_code == status
+        assert data.get('error', {}) == error
+    else:
+        response = course.create()
+        new_course = parse_data(response)
 
-#         response = user.get_by_id(user_id=new_user['idUser'])
-#         fetched_user = parse_data(response)
+        response = course.get_by_id(course_id=new_course['idCourse'])
+        fetched_course = parse_data(response)
 
-#         for key in fetched_user.keys():
-#             assert fetched_user[key] == new_user[key]
+        for key in fetched_course.keys():
+            assert fetched_course[key] == new_course[key]
