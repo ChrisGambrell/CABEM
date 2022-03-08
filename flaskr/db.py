@@ -7,7 +7,7 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy, event
 from sqlalchemy import MetaData
 from sqlalchemy.orm.session import Session
-from sqlalchemy.sql.expression import delete, update
+from sqlalchemy.sql.expression import update
 
 metadata = MetaData(naming_convention={
     "ix": 'ix,%(column_0_label)s',

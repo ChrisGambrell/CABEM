@@ -3,12 +3,12 @@
 import pytest
 from datetime import datetime, timedelta
 from flaskr.db import Course
-from tests.conftest import default_auth, default_user, parse_data
+from tests.conftest import parse_data
 
 
 @pytest.mark.parametrize(('CourseTitle', 'CourseNumber', 'CourseStart', 'CourseEnd', 'status', 'error'), (
     ('', '', 0, 0, 400, {'CourseTitle': ['empty values not allowed'], 'CourseNumber': ['empty values not allowed']}),
-    ('Sample Title', 1234, datetime.now().timestamp() ,(datetime.now() + timedelta(days=30)).timestamp(), 200, {}),
+    ('Sample Title', 1234, datetime.now().timestamp(), (datetime.now() + timedelta(days=30)).timestamp(), 200, {}),
 ))
 def test_validate_create_course_input(course, CourseTitle, CourseNumber, CourseStart, CourseEnd, status, error):
     response = course.create(data={'CourseTitle': CourseTitle, 'CourseNumber': CourseNumber, 'CourseStart': CourseStart, 'CourseEnd': CourseEnd})
