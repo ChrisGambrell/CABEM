@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import pytest
-from flaskr.db import User
 from tests.conftest import parse_data
 
 

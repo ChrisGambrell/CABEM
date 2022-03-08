@@ -60,7 +60,7 @@ default_course = {
     'CourseTitle': 'Sample Course',
     'CourseNumber': 1234567890,
     'CourseStart': datetime.now().timestamp(),
-    'CourseEnd': (datetime.now() + timedelta(days=30)).timestamp()
+    'CourseEnd': (datetime.now() + timedelta(days=30)).timestamp(),
 }
 
 default_user = {

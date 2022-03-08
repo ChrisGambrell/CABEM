@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 import pytest
-from datetime import datetime
-from flaskr.db import  User
-from tests.conftest import default_auth, default_user, parse_data
+from flaskr.db import User
+from tests.conftest import parse_data
 
 
 @pytest.mark.parametrize(('Email', 'Password', 'FirstName', 'LastName', 'SaltKey', 'status', 'error'), (
