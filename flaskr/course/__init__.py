@@ -8,6 +8,7 @@ from flask import Blueprint
 
 bp = Blueprint('course', __name__, url_prefix='/course')
 v = Validator(purge_unknown=True)
+to_datetime = lambda t: datetime.fromtimestamp(t)
 
 request_schema = {
     'CourseTitle': {
@@ -37,17 +38,17 @@ request_schema = {
     },
     'ProjectedStartDate': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'CourseStart': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'CourseEnd': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'isLaunched': {
@@ -67,7 +68,7 @@ request_schema = {
     },
     'DateMarketingSignoff': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'CMESignoff': {
@@ -82,7 +83,7 @@ request_schema = {
     },
     'DateCMESignoff': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'MedReviewSignoff': {
@@ -97,7 +98,7 @@ request_schema = {
     },
     'DateMedReviewSignoff': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'AgendaComplete': {
@@ -112,17 +113,17 @@ request_schema = {
     },
     'DateAgendaComplete': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'DateCreated': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'DateLastUpdated': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'idCourseType': {
@@ -147,7 +148,7 @@ request_schema = {
     },
     'ProposalDueDate': {
         'type': 'datetime',
-        'coerce': datetime,
+        'coerce': to_datetime,
         'empty': False,
     },
     'idModule': {
