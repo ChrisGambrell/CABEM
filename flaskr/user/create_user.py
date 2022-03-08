@@ -7,6 +7,8 @@ from flaskr.db import db, User, UserSchema
 from flaskr.utils import parse_data
 from werkzeug.security import generate_password_hash
 
+to_datetime = lambda t: datetime.fromtimestamp(t)
+
 
 @bp.route('/', methods=['POST'])
 @parse_data
@@ -48,7 +50,7 @@ def create_user(data, **kwargs):
         },
         'StartDate': {
             'type': 'datetime',
-            'coerce': datetime,
+            'coerce': to_datetime,
             'empty': False,
         },
         'Img': {
