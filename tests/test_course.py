@@ -34,29 +34,27 @@ def test_create(user):
 # #         assert data[key] == default_auth[key]
 
 
-# @pytest.mark.parametrize(('data', 'status', 'error'), (
-#     ({'Email': '', 'FirstName': '', 'LastName': ''}, 400, {'Email': ['empty values not allowed'], 'FirstName': ['empty values not allowed'], 'LastName': ['empty values not allowed']}),
-#     ({'Email': 'user@example.com', 'FirstName': 'Johnny', 'LastName': 'Dowe'}, 401, {'Email': ['Email is taken']}),
-#     ({'Email': 'new_user@example.com', 'FirstName': 'Johnny', 'LastName': 'Dowe'}, 200, {}),
-# ))
-# def test_validate_edit_user_input(user, data, status, error):
-#     user.create()
-#     response = user.edit(data=data)
-#     data = parse_data(response)
+@pytest.mark.parametrize(('data', 'status', 'error'), (
+    ({'CourseTitle': '', 'CourseNumber': ''}, 400, {'CourseTitle': ['empty values not allowed'], 'CourseNumber': ['empty values not allowed']}),
+    ({'CourseTitle': 'New Course Title', 'CourseNumber': 987, 'CourseStart': (datetime.now() + timedelta(days=1)).timestamp()}, 200, {}),
+))
+def test_validate_edit_course_input(course, data, status, error):
+    response = course.edit(data=data)
+    data = parse_data(response)
 
-#     assert response.status_code == status
-#     assert data.get('error', {}) == error
+    assert response.status_code == status
+    assert data.get('error', {}) == error
 
 
-# def test_edit_user(user):
-#     response = user.create()
-#     new_user = parse_data(response)
+def test_edit_course(course):
+    response = course.create()
+    new_course = parse_data(response)
 
-#     response = user.edit(data={'Email': 'new_user@example.com', 'FirstName': 'Johnny', 'LastName': 'Dowe'})
-#     data = parse_data(response)
+    response = course.edit(data={'CourseTitle': 'New Course Title', 'CourseNumber': 987, 'StartDate': (datetime.now() + timedelta(days=1)).timestamp()})
+    data = parse_data(response)
 
-#     for key in ['Email', 'FirstName', 'LastName']:
-#         assert data[key] != new_user[key]
+    for key in ['CourseTitle', 'CourseNumber', 'CourseStart']:
+        assert data[key] != new_course[key]
 
 
 # def test_delete_user(user):
