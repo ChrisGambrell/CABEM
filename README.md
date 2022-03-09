@@ -4,7 +4,7 @@
 
 ## Authors
 
-Chris Gambrell, 
+Chris Gambrell, Chris Gambrell (2),
 
 ## Frameworks Used
 
