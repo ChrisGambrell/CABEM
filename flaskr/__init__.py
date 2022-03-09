@@ -37,13 +37,7 @@ def create_app(test_config=None):
         def secret(authed_user, **kwargs):
             return jsonify({'hello': authed_user.FirstName})
 
-        from . import auth
-        app.register_blueprint(auth.bp)
-
-        from . import course
-        app.register_blueprint(course.bp)
-
-        from . import user
-        app.register_blueprint(user.bp)
+        from . import api
+        app.register_blueprint(api.bp)
 
     return app
