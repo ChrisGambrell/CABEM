@@ -1,6 +1,10 @@
 # CABEM
 
-Sample boilerplate flask project
+`TODO: Add description of project`
+
+## Authors
+
+Chris Gambrell, 
 
 ## Frameworks Used
 
