@@ -165,7 +165,7 @@ class User(db.Model):
 
 ## API Reference
 
-### `GET /hello`
+### `GET /api/hello`
 
 Gets a hello message
 
@@ -175,7 +175,7 @@ Return:
 hello, world
 ```
 
-### `GET /secret`
+### `GET /api/secret`
 
 Tests authentication with a greeting
 
@@ -193,7 +193,7 @@ Return:
 }
 ```
 
-### `POST /auth/login`
+### `POST /api/auth/login`
 
 Logs in a user
 
@@ -214,7 +214,7 @@ Return:
 }
 ```
 
-### `GET /course/`
+### `GET /api/course/`
 
 Gets all courses
 
@@ -234,7 +234,7 @@ Return:
 ]
 ```
 
-### `POST /course/`
+### `POST /api/course/`
 
 Creates a course
 
@@ -298,7 +298,7 @@ Return:
 }
 ```
 
-### `GET /course/<course_id>`
+### `GET /api/course/<course_id>`
 
 Gets a course by its ID
 
@@ -316,7 +316,7 @@ Return:
 }
 ```
 
-### `PATCH /course/<course_id>`
+### `PATCH /api/course/<course_id>`
 
 Updates a course
 
@@ -380,7 +380,7 @@ Return:
 }
 ```
 
-### `DELETE /course/<course_id>`
+### `DELETE /api/course/<course_id>`
 
 Deletes a course
 
@@ -396,7 +396,7 @@ Return:
 {}
 ```
 
-### `GET /user/`
+### `GET /api/user/`
 
 Gets the authenticated user
 
@@ -414,7 +414,7 @@ Return:
 }
 ```
 
-### `POST /user/`
+### `POST /api/user/`
 
 Creates a user
 
@@ -445,7 +445,7 @@ Return:
 }
 ```
 
-### `PATCH /user/`
+### `PATCH /api/user/`
 
 Updates the authenticated user
 
@@ -480,7 +480,7 @@ Return:
 }
 ```
 
-### `DELETE /user/`
+### `DELETE /api/user/`
 
 Deletes the authenticated user
 
@@ -496,7 +496,7 @@ Return:
 {}
 ```
 
-### `GET /user/<user_id>`
+### `GET /api/user/<user_id>`
 
 Gets a user by their ID
 

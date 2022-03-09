@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import jsonify
 from flaskr.db import db, User, UserSchema
-from flaskr.user import bp, v
+from flaskr.api.user import bp, v
 from flaskr.utils import login_required, parse_data
 
 to_datetime = lambda t: datetime.fromtimestamp(t)

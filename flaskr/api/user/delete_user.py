@@ -2,7 +2,7 @@
 
 from flask import jsonify
 from flaskr.db import db
-from flaskr.user import bp
+from flaskr.api.user import bp
 from flaskr.utils import login_required
 
 

@@ -5,7 +5,7 @@ import os
 from datetime import datetime, timedelta
 from dotenv.main import dotenv_values
 from flask import jsonify
-from flaskr.auth import bp, v
+from flaskr.api.auth import bp, v
 from flaskr.db import User
 from flaskr.utils import parse_data
 from werkzeug.security import check_password_hash
