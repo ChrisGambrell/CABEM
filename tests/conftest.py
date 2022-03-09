@@ -83,7 +83,7 @@ class AuthActions(object):
         return {'Authorization': f'Bearer {data.get("token", "")}'}
 
     def login(self, data=default_auth):
-        return self._client.post('/auth/login', json=data)
+        return self._client.post('/api/auth/login', json=data)
 
 
 @pytest.fixture()
@@ -97,19 +97,19 @@ class CourseActions(object):
         self._auth = auth
 
     def create(self, user=default_auth, data=default_course):
-        return self._client.post('/course/', json=data, headers=self._auth.get_auth_header(user=user))
+        return self._client.post('/api/course/', json=data, headers=self._auth.get_auth_header(user=user))
 
     def get(self, user=default_auth):
-        return self._client.get('/course/', headers=self._auth.get_auth_header(user=user))
+        return self._client.get('/api/course/', headers=self._auth.get_auth_header(user=user))
 
     def get_by_id(self, course_id=1, user=default_auth):
-        return self._client.get(f'/course/{course_id}', headers=self._auth.get_auth_header(user=user))
+        return self._client.get(f'/api/course/{course_id}', headers=self._auth.get_auth_header(user=user))
 
     def edit(self, course_id=1, user=default_auth, data=None):
-        return self._client.patch(f'/course/{course_id}', json=data, headers=self._auth.get_auth_header(user=user))
+        return self._client.patch(f'/api/course/{course_id}', json=data, headers=self._auth.get_auth_header(user=user))
 
     def delete(self, course_id, user=default_auth):
-        return self._client.delete(f'/course/{course_id}', headers=self._auth.get_auth_header(user=user))
+        return self._client.delete(f'/api/course/{course_id}', headers=self._auth.get_auth_header(user=user))
 
 
 @pytest.fixture()
@@ -123,19 +123,19 @@ class UserActions(object):
         self._auth = auth
 
     def create(self, data=default_user):
-        return self._client.post('/user/', json=data)
+        return self._client.post('/api/user/', json=data)
 
     def get(self, user=default_auth):
-        return self._client.get('/user/', headers=self._auth.get_auth_header(user=user))
+        return self._client.get('/api/user/', headers=self._auth.get_auth_header(user=user))
 
     def get_by_id(self, user_id=1, user=default_auth):
-        return self._client.get(f'/user/{user_id}', headers=self._auth.get_auth_header(user=user))
+        return self._client.get(f'/api/user/{user_id}', headers=self._auth.get_auth_header(user=user))
 
     def edit(self, user=default_user, data=None):
-        return self._client.patch('/user/', headers=self._auth.get_auth_header(user=user), json=data)
+        return self._client.patch('/api/user/', headers=self._auth.get_auth_header(user=user), json=data)
 
     def delete(self, user=default_user):
-        return self._client.delete('/user/', headers=self._auth.get_auth_header(user=user))
+        return self._client.delete('/api/user/', headers=self._auth.get_auth_header(user=user))
 
 
 @pytest.fixture()
