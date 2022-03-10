@@ -16,7 +16,6 @@ def test_validate_create_user_input(user, Email, Password, FirstName, LastName, 
 
     assert response.status_code == status
     assert data.get('error', {}) == error
-    
 
 
 def test_create(user):
