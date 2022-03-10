@@ -35,39 +35,6 @@ jobs:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')
     needs: build
     runs-on: ubuntu-latest
-
-    # steps:
-    # - uses: actions/checkout@v3
-    # - name: Refresh secrets
-    #   run: |
-    #     ./Tools/lib/gen-env
-    # - name: Heroku login credentials
-    #   run: |
-    #     cat > ~/.netrc <<EOF
-    #       machine api.heroku.com
-    #         login $HEROKU_EMAIL
-    #         password $HEROKU_API_KEY
-    #       machine git.heroku.com
-    #         login $HEROKU_EMAIL
-    #         password $HEROKU_API_KEY
-    #     EOF
-    #   env:
-    #     HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-    #     HEROKU_EMAIL: ${{secrets.HEROKU_EMAIL}}
-    # - name: Add Heroku remote
-    #   run: |
-    #     heroku git:remote --app $HEROKU_APP_NAME_SECONDARY
-    #   env:
-    #     HEROKU_APP_NAME_SECONDARY: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
-    # - name: Push to Heroku
-    #   run: |
-    #     git fetch --unshallow
-    #     git push heroku secondary:main
-
-  deploy_secondary:
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')
-    needs: build
-    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
