@@ -9,31 +9,31 @@ on:
     branches: [ main, secondary ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  # build:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v2
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install -e .
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        ./Tools/lib/check-style
-    - name: Refresh secrets
-      run: |
-        ./Tools/lib/gen-env
-    - name: Test with coverage & pytest
-      run: |
-        ./Tools/lib/test
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v2
+  #   - name: Install dependencies
+  #     run: |
+  #       python -m pip install --upgrade pip
+  #       python -m pip install -e .
+  #   - name: Lint with flake8
+  #     run: |
+  #       # stop the build if there are Python syntax errors or undefined names
+  #       ./Tools/lib/check-style
+  #   - name: Refresh secrets
+  #     run: |
+  #       ./Tools/lib/gen-env
+  #   - name: Test with coverage & pytest
+  #     run: |
+  #       ./Tools/lib/test
 
   deploy_secondary:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,7 @@ jobs:
         ./Tools/lib/gen-env
     - name: testing
       run: |
-        ls
+        ls ./flaskr
     # - name: Heroku login credentials
     #   run: |
     #     cat > ~/.netrc <<EOF
