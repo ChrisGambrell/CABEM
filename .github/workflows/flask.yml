@@ -2,12 +2,11 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
 name: Flask
-
 on:
   push:
-    branches: [ main ]
+    branches: [ main, secondary ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, secondary ]
 
 jobs:
   build:
@@ -32,7 +31,24 @@ jobs:
       run: |
         ./Tools/lib/test
 
-  deploy:
+  deploy_secondary:
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Refresh secrets
+      run: |
+        ./Tools/lib/gen-env
+    - uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
+        heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env_file: ./.env
+
+  deploy_main:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
@@ -45,6 +61,6 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+        heroku_app_name: ${{secrets.HEROKU_APP_NAME_MAIN}}
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         env_file: ./.env
