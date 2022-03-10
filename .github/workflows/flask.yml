@@ -61,6 +61,7 @@ jobs:
         HEROKU_APP_NAME_SECONDARY: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
     - name: Push to Heroku
       run: |
+        git fetch --unshallow
         git push heroku secondary:master
 
   # deploy_secondary:
