@@ -29,7 +29,7 @@ def create_app(test_config=None):
 
         @app.route('/hello')
         def hello():
-            return 'hello, world! testing123'
+            return 'hello, world!'
 
         @app.route('/secret')
         @login_required
