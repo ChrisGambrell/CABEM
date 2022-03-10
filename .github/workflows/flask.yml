@@ -35,35 +35,66 @@ jobs:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')
     needs: build
     runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Refresh secrets
+      run: |
+        ./Tools/lib/gen-env
+    - name: Heroku login credentials
+      run: |
+        cat > ~/.netrc <<EOF
+          machine api.heroku.com
+            login $HEROKU_EMAIL
+            password $HEROKU_API_KEY
+          machine git.heroku.com
+            login $HEROKU_EMAIL
+            password $HEROKU_API_KEY
+        EOF
+      env:
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        HEROKU_EMAIL: ${{HEROKU_EMAIL}}
+    - name: Add Heroku remote
+      run: heroku git:remote --app $HEROKU_APP_NAME_SECONDARY
+      env:
+        HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
+    - name: Push to Heroku
+      run: |
+        git push heroku secondary:main
+
+  # deploy_secondary:
+  #   if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')
+  #   needs: build
+  #   runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: secondary
-    - name: Refresh secrets
-      run: |
-        ./Tools/lib/gen-env
-    - uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
-        heroku_email: ${{secrets.HEROKU_EMAIL}}
-        branch: secondary
-        env_file: ./.env
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #     with:
+  #       ref: secondary
+  #   - name: Refresh secrets
+  #     run: |
+  #       ./Tools/lib/gen-env
+  #   - uses: akhileshns/heroku-deploy@v3.12.12
+  #     with:
+  #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #       heroku_app_name: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
+  #       heroku_email: ${{secrets.HEROKU_EMAIL}}
+  #       branch: secondary
+  #       env_file: ./.env
 
-  deploy_main:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy_main:
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Refresh secrets
-      run: |
-        ./Tools/lib/gen-env
-    - uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME_MAIN}}
-        heroku_email: ${{secrets.HEROKU_EMAIL}}
-        env_file: ./.env
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Refresh secrets
+  #     run: |
+  #       ./Tools/lib/gen-env
+  #   - uses: akhileshns/heroku-deploy@v3.12.12
+  #     with:
+  #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #       heroku_app_name: ${{secrets.HEROKU_APP_NAME_MAIN}}
+  #       heroku_email: ${{secrets.HEROKU_EMAIL}}
+  #       env_file: ./.env
