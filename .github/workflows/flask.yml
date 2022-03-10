@@ -37,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - uses: actions/checkout@v3
     - name: Refresh secrets
       run: |
         ./Tools/lib/gen-env
