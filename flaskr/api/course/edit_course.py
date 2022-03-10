@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import jsonify
-from flaskr.course import bp, request_schema, v
+from flaskr.api.course import bp, request_schema, v
 from flaskr.db import db, CourseSchema
 from flaskr.utils import exists_course, login_required, parse_data
 
