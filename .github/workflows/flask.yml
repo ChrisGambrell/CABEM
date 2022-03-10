@@ -37,14 +37,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: secondary
     - name: Refresh secrets
       run: |
         ./Tools/lib/gen-env
     - uses: akhileshns/heroku-deploy@v3.12.12
       with:
+        branch: secondary
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
         heroku_email: ${{secrets.HEROKU_EMAIL}}
@@ -57,8 +55,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        ref: main
     - name: Refresh secrets
       run: |
         ./Tools/lib/gen-env
