@@ -43,10 +43,10 @@ jobs:
         ./Tools/lib/gen-env
     - uses: akhileshns/heroku-deploy@v3.12.12
       with:
-        branch: secondary
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: ${{secrets.HEROKU_APP_NAME_SECONDARY}}
         heroku_email: ${{secrets.HEROKU_EMAIL}}
+        branch: secondary
         env_file: ./.env
 
   deploy_main:
