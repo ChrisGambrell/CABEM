@@ -57,7 +57,7 @@ jobs:
     - name: Add Heroku remote
       run: heroku git:remote --app $HEROKU_APP_NAME_SECONDARY
       env:
-        HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
+        HEROKU_APP_NAME_SECONDARY: ${{secrets.HEROKU_APP_NAME}}
     - name: Push to Heroku
       run: |
         git push heroku secondary:main
