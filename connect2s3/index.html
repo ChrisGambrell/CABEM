@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 1rem;
+            padding: 1rem;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h3>Create Bucket With Random Name</h3>
+        <p>Adds a new empty bucket to the s3 directory with a randomly generated name.</p>
+        <form action="/create_bucket" method="POST">
+            <button>Generate Bucket</button>
+        </form>
+    </div>
+    <div>
+        <h3>Create Bucket With Custom Name</h3>
+        <p>Adds a new empty bucket to the s3 directory with the name provided below.</p>
+        <form action="/custom_bucket" method="POST">
+            <label for="custom_bucket_name">Bucket Name:</label>
+            <input placeholder="Bucket Name" id="custom_bucket_name" name="custom_bucket_name" />
+            <button>Submit</button>
+        </form>
+    </div>
+    <div>
+        <h3>Add Test File to Bucket</h3>
+        <p>Adds a .txt file with content: "Hello World!" to the the bucket with name provided below.</p>
+        <form action="/add_test_file_to_bucket" method="POST">
+            <label for="test_bucket_name">Bucket Name:</label>
+            <input placeholder="Bucket Name" id="test_bucket_name" name="test_bucket_name" />
+            <button>Submit</button>
+        </form>
+    </div>
+    <div>
+        <h3>List Bucket(s)</h3>
+        <p>Lists names of all buckets in the s3 directory.</p>
+        <form action="/list_buckets" method="GET">
+            <button>List Buckets</button>
+        </form>
+    </div>
+    <div>
+        <h3>Upload File to Bucket</h3>
+        <p>Uploads file found in server directory under given file name to bucket with given bucket name.</p>
+        <form action="/upload_to_bucket" method="POST">
+            <label for="bucket_to_upload">Bucket Name:</label>
+            <input placeholder="Bucket Name" id="bucket_to_upload" name="bucket_to_upload" />
+            <label for="file_to_upload"">File Name:</label>
+            <input placeholder=" File Name" id="file_to_upload" name="file_to_upload" />
+            <button>Submit</button>
+        </form>
+    </div>
+    <div>
+        <h3>List Files in Bucket</h3>
+        <p>Lists files within given bucket name in the terminal.</p>
+        <form action="/list_objs_in_bucket" method="POST">
+            <label for="list_bucket_name">Bucket Name:</label>
+            <input placeholder="Bucket Name" id="list_bucket_name" name="list_bucket_name" />
+            <button>Submit</button>
+        </form>
+    </div>
+    <div>
+        <h3>Delete Empty Bucket</h3>
+        <p>Deletes empty bucket from s3 directory.</p>
+        <form action="/delete_empty_bucket" method="POST">
+            <label for="delete_bucket_name/">Bucket Name:</label>
+            <input placeholder="Bucket Name" id="delete_bucket_name" name="delete_bucket_name" />
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
