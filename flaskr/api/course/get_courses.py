@@ -3,6 +3,7 @@
 from flask import jsonify
 from flaskr.api.course import bp
 from flaskr.db import Course, CourseSchema
+# from flaskr.utils import login_required
 
 
 @bp.route('/', methods=['GET'])
