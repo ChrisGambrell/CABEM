@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flaskr.utils import parse_data
 
@@ -30,6 +30,10 @@ def create_app(test_config=None):
         @app.route('/hello')
         def hello():
             return 'hello, world!'
+
+        @app.route('/testing')
+        def testing():
+            return jsonify(request.form)
 
         @app.route('/secret')
         @login_required
