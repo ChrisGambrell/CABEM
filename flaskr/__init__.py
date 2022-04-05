@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flaskr.utils import parse_data
 
