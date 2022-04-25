@@ -4,7 +4,7 @@
 
 ## Authors
 
-Chris Gambrell, 
+Chris Gambrell, Dylan Lee
 
 ## Frameworks Used
 
