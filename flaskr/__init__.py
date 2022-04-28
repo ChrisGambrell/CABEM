@@ -31,6 +31,11 @@ def create_app(test_config=None):
         def hello():
             return 'hello, world!'
 
+        @app.route('/testing')
+        @parse_data
+        def testing(data):
+            return jsonify(data)
+
         @app.route('/secret')
         @login_required
         @parse_data

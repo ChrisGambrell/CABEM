@@ -27,9 +27,9 @@ jobs:
     - name: Refresh secrets
       run: |
         ./Tools/lib/gen-env
-    - name: Test with coverage & pytest
-      run: |
-        ./Tools/lib/test
+    # - name: Test with coverage & pytest
+    #   run: |
+    #     ./Tools/lib/test
 
   deploy_secondary:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/secondary' || github.ref == 'refs/heads/main')

@@ -1,12 +1,10 @@
 # CABEM
 
-SECONDARY BRANCH
-
 `TODO: Add description of project`
 
 ## Authors
 
-Chris Gambrell, Another Name
+Carson Wohlwender, Chris Gambrell, David Juett, Dylan Lee, Orest Tuz, Zach Gilbert
 
 ## Frameworks Used
 
