@@ -1,6 +1,6 @@
 # CABEM
 
-`TODO: Add description of project`
+The software designed by Team 11 was created to produce a workable web service for CABEM. As an enterprise learning based organization that creates solutions for customers who need website solutions with handling data. Our web-service that accepts different data formats, processes them for metadata, and allows the data to be referenced later will act as an effective data-analytics tool that provides a readable and well-managed database that makes looking up vital information simple and succinct.
 
 ## Authors
 
