@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from flask import jsonify
-from flaskr.user import bp, v
+from flaskr.api.user import bp, v
 from flaskr.db import db, User, UserSchema
 from flaskr.utils import parse_data
 from werkzeug.security import generate_password_hash
